@@ -1,0 +1,76 @@
+<html>
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+			<link rel="stylesheet" href="css/style-noscript.css" />
+		</noscript>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", '1', {packages:['corechart']});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+// It uses sample.xls and calculates the production of paper production by world major countries
+	var query = new google.visualization.Query(
+      'https://docs.google.com/spreadsheet/ccc?key=0At7iDiz4_NJ2dGxKaG5IU3g2eTVuUk9lQXZjRkhzMUE&usp=sharing ');
+  
+  query.send(handleQueryResponse);
+}
+
+function handleQueryResponse(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var data = response.getDataTable();
+  var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+  var options ={};
+  options['title']='Continent wise paper production since 1950 Till 2010. Projected value in 2020 shows a continuous increase for USA and Europe'
+  options['width']=  900
+  options['height']= 800	   
+  chart.draw(data, options);
+  
+}
+</script>
+
+<title>Data from a Spreadsheet</title>
+	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		
+</head>
+
+
+<body>
+<div class="wrapper style1">
+
+		<div class="container">
+			<div class="row">
+				<div class="12u skel-cell-important" id="content">
+					<article id="main">
+						<span id='barchart'></span>
+					</article>
+				</div>
+				<div class="12u skel-cell-important" id="content">
+					<article id="main">
+						
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

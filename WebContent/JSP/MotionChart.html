@@ -1,0 +1,46 @@
+ <html>
+ <head>
+ <script type="text/javascript" src="http://www.google.com/jsapi"> </script>
+ <script type="text/javascript">
+ google.load('visualization', '1', { 'packages':['motionchart']});
+ google.setOnLoadCallback(drawChart);
+ function drawChart() {
+	 var data=new google.visualization.DataTable();
+	 var query = new google.visualization.Query('https://docs.google.com/spreadsheet/ccc?key=0AsiJLz9r2koLdDhZRFZkeXEzcTFqOGI2ZVJyU2FpOEE&usp=sharing'); 
+	
+   //
+	query.send(handleQueryResponse);
+	 
+	/* data.addRows([ 
+	 				['Angola',new Date(1990,0,1),124670, 60976],
+	 				['Angola',new Date(2000,0,1),124670, 59728],
+	                ['Angola',new Date(2005,0,1),124670, 59104],
+	                ['Angola',new Date(2010,0,1),124670, 58480]
+	                
+	                ]);
+	*/
+ }
+	function handleQueryResponse(response) {
+		  if (response.isError()) {
+		    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+		    return;
+		  }
+	
+		  var data = response.getDataTable();
+		  var chart=new google.visualization.MotionChart(  document.getElementById('chart_div'));
+
+			var options = {};
+				options['width'] =  '900 ';
+				options['height'] = '600 ';
+				options['title'] ='Forest area by region between 1990 and 2010 shows a decreasing trend';
+			     options['state']={"time":"2010","showTrails":false,"duration":{"multiplier":1,"timeUnit":"Y"},"colorOption":"_UNIQUE_COLOR","uniColorForNonSelected":false,"orderedByY":false,"playDuration":2000,"xZoomedIn":false,"sizeOption":"_UNISIZE","yZoomedIn":false,"xZoomedDataMin":0,"iconKeySettings":[{"key":{"dim0":"Botswana"}},{"key":{"dim0":"Argentina"}},{"key":{"dim0":"Armenia"}},{"key":{"dim0":"Brazil"}},{"key":{"dim0":"Benin"}},{"key":{"dim0":"Colombia"}},{"key":{"dim0":"Angola"}},{"key":{"dim0":"South America"}},{"key":{"dim0":"Central America"}},{"key":{"dim0":"Bangladesh"}},{"key":{"dim0":"Australia"}}],"yAxisOption":"3","xZoomedDataMax":74,"yZoomedDataMax":1000000,"yLambda":1,"orderedByX":true,"xLambda":1,"yZoomedDataMin":0,"dimensions":{"iconDimensions":["dim0"]},"xAxisOption":"3","iconType":"VBAR","nonSelectedAlpha":0.4};
+				chart.draw(data, options); 
+                     
+	}
+ </script> 
+ </head> 
+  <body> 
+  <div id="chart_div" >
+  </div>
+  </body> 
+  </html>

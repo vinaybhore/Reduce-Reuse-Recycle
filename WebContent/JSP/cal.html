@@ -1,0 +1,43 @@
+<html>
+<head>
+<script type="text/javascript" src="../resources/js/jquery-2.0.3.js">
+</script>
+<script type="text/javascript">
+
+		$(function(){
+
+			$(":button").click(function(){
+				
+				var v1=$("#f").val();		
+				var v2=$("#s").val();
+
+				alert("Hello World!");
+					
+				$.ajax({
+					url:'/CMPE272_Project/JSP/cal.jsp',
+					data:{f:v1,s:v2},
+					type:'POST',
+					dataType:'text',
+					success:function(data){ 
+						$("#div0").text('Result : '+data);
+					},
+					error:function(xhr,status,httpStatus){ 
+						$("#div0").text(httpStatus).css('color','red');
+					}
+				});		
+			
+			});	
+		});
+</script>
+</head>
+<body>
+<center>
+
+	Enter Number : <input type=text value=10 name=f id=f /><br>
+	Enter Number : <input type=text value=20 name=s id=s /><br>
+				   <input type=button value=SUM />	
+				   <br>
+				   <div id='div0'></div>
+</center>
+</body>
+</html>

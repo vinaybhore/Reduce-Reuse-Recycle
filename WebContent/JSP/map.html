@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.dropotron.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/skel-panels.min.js"></script>
+<script src="js/init.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript">
+google.load('visualization', '1.1', {'packages': ['geomap']});
+google.load('visualization', '1.1', {'packages': ['corechart']});
+google.setOnLoadCallback(drawChart);
+function drawMap(data) {
+	 alert("drawMap");
+	 
+	 dataTable = new google.visualization.DataTable();
+    // var data = google.visualization.arrayToDataTable([
+       var newData=data;
+       // determine the number of rows and columns.
+       var numRows = newData.length;
+       var numCols = newData[0].length;
+   //    alert(numRows);
+    //   alert(numCols);
+       // in this case the first column is of type 'string'.
+       dataTable.addColumn('string', newData[0][0]);
+
+       // all other columns are of type 'number'.
+       for (var i = 1; i < numCols; i++)
+         dataTable.addColumn('number', newData[0][i]);           
+
+       // now add the rows.
+       for (var i = 1; i < numRows; i++)
+         dataTable.addRow(newData[i]);    
+       
+     var options = {};
+     options['dataMode'] = 'regions';
+     options['width'] = 800;
+     options['height']= 600;
+      
+     var container = document.getElementById('map_canvas');
+     var geomap = new google.visualization.GeoMap(container);
+     geomap.draw(dataTable, options);
+     
+     
+ };
+
+ function drawChart(olddata,newdata) {
+	 //alert("drawChart");
+	 
+	 dataTable1 = new google.visualization.DataTable();
+	 dataTable2 = new google.visualization.DataTable();
+    // var data = google.visualization.arrayToDataTable([
+       var data1=olddata;
+       var data2=newdata;
+       // determine the number of rows and columns.
+       var numRows1 = data1.length;
+       var numCols1 = data1[0].length;
+      
+       var numRows2 = data2.length;
+       var numCols2 = data2[0].length;
+       
+      
+    
+       // in this case the first column is of type 'string'.
+       dataTable1.addColumn('string', 'country');
+
+       // all other columns are of type 'number'.
+       for (var i = 1; i < numCols1; i++)
+         dataTable1.addColumn('number', 'area');           
+	
+       for (var i = 1; i < numRows1; i++)
+         dataTable1.addRow(data1[i]);    
+       
+       dataTable2.addColumn('string', 'country');
+       
+       for (var i = 1; i < numCols2; i++)
+       dataTable2.addColumn('number', 'area');           
+	
+     for (var i = 1; i < numRows2; i++)
+       dataTable2.addRow(data2[i]);    
+       
+       var options = { pieSliceText: 'none' };
+     var container = document.getElementById('map_canvas1');
+     var chartbefore = new google.visualization.PieChart(container);
+     
+     var container = document.getElementById('map_canvas2');
+     var chartafter = new google.visualization.PieChart(container);
+     
+     options['title']= 'Comparison of forest area losses in top 10 countries between 1990 and 2010   Brazil  Indonesia  Sudan  Burma  Nigeria  Tanzania  Mexico  Zimbabwe  Congo  Argentina';
+     options['width'] = 800;
+     options['height']= 600;
+     var container = document.getElementById('map_canvas3');
+     var chartdiff = new google.visualization.PieChart(container);
+	
+     chartbefore.draw(dataTable1, options);
+     chartafter.draw(dataTable2, options);
+     
+     var diffData = chartdiff.computeDiff(dataTable1, dataTable2);
+     chartdiff.draw(diffData, options);
+     
+     
+ };
+ 
+
+
+	$(function() {
+		$(document).ready(function() {
+	//alert("Hi");
+			$.ajax({
+				url :'/CMPE272_New/JSP/map.jsp',
+				type : 'POST',
+				dataType : 'json',
+				success:function(json){ 
+				//	alert("success");
+					$("#div0").text('Result : '+json.CRMNameByDate);
+					
+					var arr1=[];
+					var x=json["region"];
+					var y=json["value"];    
+			//		alert(x);
+			//		alert(y);
+					for( var i in x){
+					    arr1.push([x[i],y[i]]); //For x and y of the same length
+					}
+		//			alert(arr1);
+					
+		//			drawMap(arr1);
+					
+					var arr2=[];
+					var arr3=[];
+					var x2=json["region2"];
+//					var x3=json["region3"];
+					
+					var y2=json["value2"];
+					var y3=json["value3"];
+					//alert(x2);
+					//alert(y2);
+					for (var j in x2){
+						arr2.push([x2[j],y2[j]]);
+						arr3.push([x2[j],y3[j]]);
+						}
+					
+		//			alert(arr2);
+		//			alert(arr3);
+					//	arr3.push([x2[i],y3[i]]); }
+						
+					drawChart(arr2,arr3);
+				//	drawChart1(arr3);
+				//	drawChart2(arr2,arr3);
+				},	
+				error:function(xhr,status,httpStatus){ 
+					$("#div0").text(httpStatus).css('color','red'); }
+				});
+			});
+
+		});
+</script>
+<title>Visualization</title>
+</head>
+<body>
+
+
+<div class="wrapper style1">
+	<div class="container">
+	
+
+			
+							<div id="map_canvas1"></div>
+							<div id="map_canvas2"></div>
+							<div id="map_canvas3"></div>
+			
+
+
+
+		</div>
+	</div>
+</div>	
+</body>
+</html>

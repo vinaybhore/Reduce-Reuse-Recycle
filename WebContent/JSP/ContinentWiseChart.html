@@ -1,0 +1,40 @@
+<html>
+<head>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", '1', {packages:['corechart']});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+// It uses sample.xls and calculates the production of paper production by world major countries
+	var query = new google.visualization.Query(
+      'https://docs.google.com/spreadsheet/ccc?key=0AsiJLz9r2koLdFlXQ1N6bWwzTjNDbDRESnVOaFhhRUE&usp=sharing');
+  
+  query.send(handleQueryResponse);
+}
+
+function handleQueryResponse(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var data = response.getDataTable();
+  var chart = new google.visualization.BarChart(document.getElementById('linechart'));
+  var options ={};
+  options['title']='Continent-Wise-Paper-Consumption'
+  options['width']=  900
+  options['height']= 700	   
+  chart.draw(data, options);
+  
+}
+</script>
+
+<title>Data from a Spreadsheet</title>
+</head>
+
+<body>
+<span id='linechart'></span>
+</body>
+</html><html>
+<head>

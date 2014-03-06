@@ -1,0 +1,39 @@
+<html>
+<head>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", '1', {packages:['corechart']});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+// It uses sample.xls and calculates the consumption of kilogram usage of paper per person
+	var query = new google.visualization.Query(
+      'https://docs.google.com/spreadsheet/ccc?key=0AsiJLz9r2koLdEsxR212d2ExcVlHX0RfOG5pSV92OHc&usp=sharing');
+  
+  query.send(handleQueryResponse);
+}
+
+function handleQueryResponse(response) {
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var data = response.getDataTable();
+  var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+  var options ={};
+  options['title']='Annual paper Consumption'
+  options['width']=750
+  options['height']=600	   
+  chart.draw(data, options);
+  
+}
+</script>
+
+<title>Data from a Spreadsheet</title>
+</head>
+
+<body>
+<span id='columnchart'></span>
+</body>
+</html>

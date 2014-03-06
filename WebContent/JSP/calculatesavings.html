@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<!--
+	Helios 1.5 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>No Sidebar - Helios by HTML5 UP</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link
+	href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600"
+	rel="stylesheet" type="text/css" />
+<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.dropotron.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/skel-panels.min.js"></script>
+<script src="js/init.js"></script>
+<noscript>
+	<link rel="stylesheet" href="css/skel-noscript.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style-desktop.css" />
+	<link rel="stylesheet" href="css/style-noscript.css" />
+</noscript>
+<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+<script type="text/javascript">
+	function doFunction() {
+
+		var pages = document.getElementById("pages").value;
+		var users = document.getElementById("users").value;
+
+		var total = pages * users * 52;
+		document.getElementById("annualuse").value = total;
+		document.getElementById("price").value = total * 0.20;
+		document.getElementById("trees").value = total /8333;
+	}
+
+		
+	$(document).ready(function() {
+		$('input:radio[name="Choice"]').change(function(){
+			if ($(this).is(':checked')
+					&& $(this).val() == 'Organization') {
+				$('#users').removeAttr("disabled"); }
+			else {
+				$('#users').attr("disabled", "disabled");}
+			
+		});
+	});
+</script>
+
+</head>
+<body class="no-sidebar">
+
+	<!-- Header -->
+	<div id="header">
+
+		<!-- Inner -->
+		<div class="inner">
+			<header>
+				<h1>
+					<a href="#" id="logo">Reduce-Reuse-Recycle</a>
+				</h1>
+			</header>
+		</div>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><span>Categories</span>
+					
+						<ul>
+									<li><a href="charts.html">Statistics to shock you </a></li>
+									<li><a href="calculatesavings.html">Calculate Paper Consumption</a></li>
+									
+									<li>
+										<span>Paper Saving Tips &hellip;</span>
+										<ul>
+											<li><a href="individuals.html">Individuals</a></li>
+										</ul>
+									</li>
+								
+					</ul></li>
+				
+				<li><a href="videoLibrary.html">Videos</a></li>
+				<li><a href="charts.html">Statistics</a></li>
+			</ul>
+		</nav>
+
+	</div>
+
+	<div class="wrapper style1">
+		<div class="container">
+
+			<div class="12u" id="content">
+				<h3>How many trees are necessary to make a given amount of
+					paper ?</h3>
+				<br>
+				<p>Facts displayed on this page is based on published reports
+					from sources such as printer manufacturers, government statistics
+					and paper manufacturers.</p>
+			</div>
+
+
+
+			<div class="4u" id="sidebar">
+
+				<section>
+					<header>
+						<h3>
+							<a href="#">Paper Facts</a>
+						</h3>
+					</header>
+					<p>One tree makes 8333 sheets of copy paper</p>
+					<br>
+					<p>One ton of coated non-recycled lower-end Newsmagzine and
+						catalog paper uses 8 trees</p>
+					<br>
+					<p>One ton of coated, non-recycled higher-end magzine
+						paper(used for magazines like National Geographic) uses 15 trees</p>
+					<p>One ton of non-recycled newsprint uses 12 trees</p>
+					<p>1 ton of uncoated virgin (non-recycled) printing and office
+						paper uses 24 trees</p>
+
+				</section>
+
+
+			</div>
+			<div class="8u" id="content">
+				<div style="padding-left: 80px;">
+
+					<div class="row half no-collapse">
+						<div class="9u">
+							<p>Input Values</p>
+						</div>
+						<div class="3u" align="right">
+							<p>Current Annual Use</p>
+						</div>
+					</div>
+
+					<div class="row half no-collapse">
+						<div class="3u">
+							<p>User Type</p>
+						</div>
+						<div class="9u">
+							<p>
+								<input type="radio" name="Choice" id="Trip-0" value="Individual"
+									checked="checked" required="required" />Individual <input
+									type="radio" name="Choice" id="Trip-1" value="Organization"
+									required="required" />Organization
+						</div>
+					</div>
+					<div class="row half no-collapse">
+						<div class="3u">
+							<p>pages per week</p>
+						</div>
+						<div class="6u">
+							<p>
+								<input type="text" id="pages" name="pages"/>
+									</p>
+						</div>
+						<div class="3u">
+							<p>
+								<input type="text" id="annualuse" name="annualuse" value="0"
+									onchange="doFunction()" /> sheets</p>
+						
+					</div>
+						<div class="row half no-collapse">
+							<div class="3u">
+								<p>users</p>
+							</div>
+							<div class="6u">
+
+								<input type="text" id="users" name="users" value="1" disabled="disabled" />
+							</div>
+							<div class="3u">
+								<input type="text" id="price" value="0" />consumable $
+							</div>
+						<div class="row half no-collapse">
+								<div class="9u"></div>
+								<div class="3u">
+									<input type="text" id="trees" value="0" />Trees
+								</div>
+							</div>
+							<div>
+								<span> <input type="submit" id="btnShowSaving"
+									class="button" value="Show Savings" onclick="doFunction();" /></span>
+							</div>
+							
+						</div>
+						<div
+							style="padding-left: 450px; padding-top: 50px; font-weight: bold">
+							<span class="list_text">** Assumed cost of print per page
+								is $ 0.20</span>
+						</div>
+						<div style="padding-left: 100px;"></div>
+					</div>
+				</div>
+
+			</div>
+			
+</div>
+</div>
+
+</body>
+</html>
